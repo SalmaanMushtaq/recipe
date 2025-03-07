@@ -1,19 +1,25 @@
 import {
-  createRootRouteWithContext,
-  createRoute,
-  Outlet,
+	Outlet,
+	createRootRouteWithContext,
+	createRoute,
 } from "@tanstack/react-router";
-import { RootRouteContext } from "./types";
 import MainLayout from "./layouts/main-layout";
-import NotFound from "./components/not-found";
+import TanStackQueryDemo from "./routes/demo.tanstack-query";
+import type { RootRouteContext } from "./types";
 
 const rootRoute = createRootRouteWithContext<RootRouteContext>()({
-  component: Outlet,
-  notFoundComponent: NotFound,
+	component: Outlet,
 });
-const index = createRoute({
-  path: "/",
-  component: MainLayout,
-  getParentRoute: () => rootRoute,
+
+const indexRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/",
+	component: MainLayout,
 });
-export const routeTree = rootRoute.addChildren([index]);
+
+const demoRoute = createRoute({
+	path: "/demo/tanstack-query",
+	component: TanStackQueryDemo,
+	getParentRoute: () => indexRoute,
+});
+export const routeTree = rootRoute.addChildren([indexRoute, demoRoute]);
