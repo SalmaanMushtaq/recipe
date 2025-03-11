@@ -25,3 +25,12 @@ export function getBreakfast() {
 			).then((res) => res.json()),
 	};
 }
+export function fetchIngredient(id: string) {
+	return {
+		queryKey: ["ingredient", id],
+		queryFn: () =>
+			fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).then(
+				(res) => res.json(),
+			),
+	};
+}

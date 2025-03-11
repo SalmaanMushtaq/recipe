@@ -2,8 +2,14 @@ import {
   createRootRouteWithContext,
   createRoute,
 } from "@tanstack/react-router";
+import Ingredient from "./components/ingredient";
 import MainLayout from "./layouts/main-layout";
-import { getBeef, getBreakfast, getRecipes } from "./lib/query-options";
+import {
+  fetchIngredient,
+  getBeef,
+  getBreakfast,
+  getRecipes,
+} from "./lib/query-options";
 import About from "./pages/about";
 import Area from "./pages/area";
 import Beef from "./pages/beef";
@@ -75,7 +81,13 @@ const contact = createRoute({
   component: Contact,
   getParentRoute: () => rootRoute,
 });
-
+export const ingredient = createRoute({
+  path: "$id",
+  getParentRoute: () => rootRoute,
+  component: Ingredient,
+  loader: ({ context, params }) =>
+    context.queryClient.ensureQueryData(fetchIngredient(params.id)),
+});
 export const routeTree = rootRoute.addChildren([
   indexRoute,
   beef,
@@ -86,4 +98,5 @@ export const routeTree = rootRoute.addChildren([
   area,
   about,
   contact,
+  ingredient,
 ]);

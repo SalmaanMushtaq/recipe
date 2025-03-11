@@ -1,5 +1,4 @@
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
-import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
@@ -16,7 +15,7 @@ export default function MainLayout() {
           <header className="border-b flex h-16 shrink-0 items-center gap-2 pe-8 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 ">
             <div className="flex items-center gap-2 px-4 w-full">
               <SidebarTrigger />
-              <h1 className="text-2xl">Salmaan Mushtaq</h1>
+              <h1 className="text-2xl">Recipe List</h1>
             </div>
           </header>
           <main className="h-100vh p-8 md-p-16">
