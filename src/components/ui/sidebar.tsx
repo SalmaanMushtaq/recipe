@@ -1,6 +1,5 @@
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -246,13 +245,14 @@ function Sidebar({
     </div>
   );
 }
-
+import ChevronLeft from "../../assets/svg/chevron-left.svg";
 function SidebarTrigger({
   className,
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, open } = useSidebar();
+  console.log("toggleSidebar", toggleSidebar, open);
 
   return (
     <Button
@@ -260,14 +260,19 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn("h-7 w-7", className)}
+      className={cn(
+        "h-9 w-9 cursor-pointer absolute -left-5 z-10 opacity-0 hover:opacity-100 hover:bg-orange-500 rounded-full",
+        className,
+        !open && "rotate-180"
+      )}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
       }}
       {...props}
     >
-      <PanelLeftIcon />
+      <img src={ChevronLeft} alt="Toggle Sidebar" className="w-7 h-7  invert" />
+      {/* <ChevronLeft color="white" className="w-8 h-8" /> */}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );
